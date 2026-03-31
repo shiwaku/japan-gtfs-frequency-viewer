@@ -1,0 +1,367 @@
+/* ---- リセット & ベース ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-light: #93c5fd;
+  --color-border: #e2e8f0;
+  --color-bg-section: #f8fafc;
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-text-label: #374151;
+  --sidebar-width: 300px;
+  font-family: "Hiragino Sans", "Meiryo", sans-serif;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+body {
+  display: flex;
+  height: 100dvh;
+  overflow: hidden;
+  background: #f0f2f5;
+}
+
+/* ---- レイアウト ---- */
+#app {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+#map {
+  flex: 1;
+  height: 100%;
+}
+
+/* ---- サイドパネル ---- */
+#sidebar {
+  width: var(--sidebar-width);
+  min-width: 260px;
+  height: 100%;
+  background: #fff;
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+#sidebar-header {
+  padding: 16px;
+  background: var(--color-primary);
+  color: #fff;
+  flex-shrink: 0;
+}
+
+#sidebar-header h1 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+#sidebar-header p {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+#sidebar-body {
+  padding: 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---- セクション ---- */
+.panel-section {
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.section-title {
+  background: var(--color-bg-section);
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.section-body {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ---- フォーム部品 ---- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+label,
+.field label {
+  font-size: 12px;
+  color: var(--color-text-label);
+}
+
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="url"],
+input[type="file"] {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  font-size: 12px;
+  color: var(--color-text);
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="url"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgb(37 99 235 / 0.15);
+}
+
+input[type="file"] {
+  padding: 4px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.field-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.field-row input {
+  flex: 1;
+}
+
+.separator {
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.sub-option {
+  padding-left: 20px;
+  transition: opacity 0.15s;
+}
+
+/* ---- チェックボックス ---- */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-text-label);
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  accent-color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+/* ---- タブ ---- */
+.tab-group {
+  display: flex;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 5px 8px;
+  background: var(--color-bg-section);
+  border: none;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+}
+
+.tab-btn.active {
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.tab-btn:not(.active):hover {
+  background: var(--color-border);
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: contents;
+}
+
+/* ---- 実行ボタン ---- */
+#run-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+#run-btn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+#run-btn:disabled {
+  background: var(--color-primary-light);
+  cursor: not-allowed;
+}
+
+/* ---- ステータスバー ---- */
+#status-bar {
+  padding: 7px 10px;
+  font-size: 11px;
+  border-radius: 4px;
+  min-height: 0;
+  transition: all 0.15s;
+}
+
+#status-bar:empty {
+  display: none;
+}
+
+.status-info {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+}
+
+.status-success {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.status-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+/* ---- レイヤー切替 ---- */
+.layer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.layer-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+}
+
+.layer-icon {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.layer-icon.line {
+  width: 22px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.layer-icon.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.layer-icon.text-badge {
+  width: 22px;
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* ---- 統計 ---- */
+#meta-info {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* ---- ポップアップ ---- */
+.popup-table {
+  font-size: 12px;
+  border-collapse: collapse;
+  max-width: 240px;
+}
+
+.popup-table tr + tr {
+  border-top: 1px solid var(--color-border);
+}
+
+.popup-table td {
+  padding: 3px 6px;
+}
+
+.popup-table .pk {
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* ---- スピナー ---- */
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

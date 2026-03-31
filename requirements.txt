@@ -1,0 +1,10 @@
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+python-multipart>=0.0.9
+requests>=2.31.0
+pandas>=2.2.2
+# gtfs_parser は以下の優先順で解決されます:
+#   1. PyPI パッケージ: pip install gtfs-parser  ← 推奨
+#   2. GTFS-GO-main のサブモジュール:
+#      cd ../GTFS-GO-main && git submodule update --init
+gtfs-parser>=0.2.2
