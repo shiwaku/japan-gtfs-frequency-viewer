@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GTFS 運行頻度図</title>
+    <script type="module" crossorigin src="/japan-gtfs-frequency-viewer/assets/index-GLo06en7.js"></script>
+    <link rel="stylesheet" crossorigin href="/japan-gtfs-frequency-viewer/assets/index-CPBcxU5w.css">
+  </head>
+  <body>
+    <div id="app">
+      <!-- サイドパネル -->
+      <aside id="sidebar">
+        <header id="sidebar-header">
+          <h1>GTFS 運行頻度図</h1>
+        </header>
+
+        <div id="sidebar-body">
+
+          <!-- GTFSデータ選択 -->
+          <section class="panel-section">
+            <div class="section-title">GTFSデータ</div>
+            <div class="section-body">
+              <div class="tab-group" role="tablist">
+                <button class="tab-btn active" data-tab="file" role="tab">ファイル</button>
+                <button class="tab-btn" data-tab="url" role="tab">URL</button>
+              </div>
+              <div id="tab-file" class="tab-panel active">
+                <label for="gtfs-file">GTFSファイル（.zip）</label>
+                <input type="file" id="gtfs-file" accept=".zip" />
+              </div>
+              <div id="tab-url" class="tab-panel">
+                <label for="gtfs-url">GTFS URL</label>
+                <input type="url" id="gtfs-url" placeholder="https://example.com/gtfs.zip" />
+              </div>
+            </div>
+          </section>
+
+          <!-- フィルタ -->
+          <section class="panel-section">
+            <div class="section-title">フィルタ</div>
+            <div class="section-body">
+              <div class="field">
+                <label for="filter-date">対象日付</label>
+                <input type="date" id="filter-date" />
+              </div>
+              <label class="checkbox-label">
+                <input type="checkbox" id="time-filter-enabled" />
+                <span>時間帯フィルタ</span>
+              </label>
+              <div class="field-row sub-option" id="time-filter-inputs">
+                <input type="time" id="begin-time" value="07:00" step="60" />
+                <span class="separator">〜</span>
+                <input type="time" id="end-time" value="09:00" step="60" />
+              </div>
+            </div>
+          </section>
+
+          <!-- 停留所統合 -->
+          <section class="panel-section">
+            <div class="section-title">停留所統合</div>
+            <div class="section-body">
+              <label class="checkbox-label">
+                <input type="checkbox" id="unify-stops" checked />
+                <span>近傍停留所を統合する</span>
+              </label>
+              <div class="field sub-option" id="delimiter-option">
+                <label for="delimiter">IDの区切り文字（任意）</label>
+                <input type="text" id="delimiter" placeholder="例: : または _" />
+              </div>
+            </div>
+          </section>
+
+          <!-- 実行 -->
+          <button id="run-btn" type="button">処理実行</button>
+          <div id="status-bar" role="status" aria-live="polite"></div>
+
+          <!-- レイヤー切替（処理後に表示） -->
+          <section class="panel-section" id="layer-controls" hidden>
+            <div class="section-title">レイヤー</div>
+            <div class="section-body">
+              <div class="layer-row">
+                <div class="layer-label">
+                  <span class="layer-icon line" style="background:#00AF20"></span>
+                  <span>運行頻度路線</span>
+                </div>
+                <input type="checkbox" id="toggle-routes" checked />
+              </div>
+              <div class="layer-row">
+                <div class="layer-label">
+                  <span class="layer-icon text-badge" style="color:#1a1a1a">123</span>
+                  <span>頻度ラベル</span>
+                </div>
+                <input type="checkbox" id="toggle-route-labels" checked />
+              </div>
+              <div class="layer-row">
+                <div class="layer-label">
+                  <span class="layer-icon dot" style="background:#FF8000"></span>
+                  <span>停留所</span>
+                </div>
+                <input type="checkbox" id="toggle-stops" checked />
+              </div>
+              <div class="layer-row">
+                <div class="layer-label">
+                  <span class="layer-icon text-badge" style="color:#303030">名</span>
+                  <span>停留所名</span>
+                </div>
+                <input type="checkbox" id="toggle-stop-labels" checked />
+              </div>
+            </div>
+          </section>
+
+          <!-- 処理結果 -->
+          <section class="panel-section" id="meta-section" hidden>
+            <div class="section-title">処理結果</div>
+            <div class="section-body">
+              <div id="meta-info"></div>
+            </div>
+          </section>
+
+        </div>
+      </aside>
+
+      <!-- 地図 -->
+      <div id="map"></div>
+    </div>
+
+  </body>
+</html>
