@@ -89,6 +89,25 @@ circle_radius = (0.8 + 0.2 * count^0.5) * 5
 GTFSデータの有効期間外の日付を指定すると `stop_times` が 0 件になり路線が表示されない。
 停留所は表示される（全停留所が unify_stops 処理対象のため）。
 
+## デプロイ
+
+GitHub Actions が使用不可のため、手動デプロイ方式を採用。
+
+```bash
+cd web
+VITE_BASE_PATH=/japan-gtfs-frequency-viewer/ npm run build
+npx gh-pages -d dist --dotfiles
+```
+
+- `gh-pages` ブランチに push → GitHub Pages (Deploy from a branch) で公開
+- `.nojekyll` を dist に含めることで Jekyll ビルドをスキップ
+- 公開 URL: https://shiwaku.github.io/japan-gtfs-frequency-viewer/
+
 ## 依存関係
 
 - TypeScript: `maplibre-gl@5.21.1`, `pmtiles@4.4.0`, `jszip`, `vite@^6`, `typescript@^5`
+- デプロイ: `gh-pages`
+
+## TODO / 検討中
+
+- GTFSファイル選択時に有効期間（calendar.txt / calendar_dates.txt）を自動読み取りして表示・日付欄に自動セット
