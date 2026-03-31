@@ -18,6 +18,3 @@ Thumbs.db
 # temp
 *.zip
 !test/*.zip
-
-# 開発メモ
-CLAUDE.md
